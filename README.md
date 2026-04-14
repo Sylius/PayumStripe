@@ -59,8 +59,18 @@ composer require  php-http/guzzle6-adapter
 
 ### What to use with this payum library ?
 
- - A Symfony bundle : [flux-se/payum-stripe-bundle](https://github.com/FLUX-SE/PayumStripeBundle)
- - A Sylius plugin : [flux-se/sylius-payum-stripe-plugin](https://github.com/FLUX-SE/SyliusPayumStripePlugin)
+ - A Symfony bundle : [flux-se/payum-stripe-bundle](https://github.com/Sylius/PayumStripeBundle)
+ - A Sylius plugin : [flux-se/sylius-payum-stripe-plugin](https://github.com/Sylius/PayumStripePlugin)
+
+## Authors
+
+This package was originally created by [Harman Professional, Inc.](https://github.com/flux-se)
+
+Kudos to [Prometee](https://github.com/Prometee) and [all contributors](../../contributors) 🙏
+
+## License
+
+This package is released under the [MIT License](LICENSE).
 
 [ico-version]: https://img.shields.io/packagist/v/FLUX-SE/payum-stripe.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
