@@ -31,7 +31,7 @@ class StatusSessionAction extends AbstractStatusAction
             return true;
         }
 
-        if ($this->isExpiredStatus($status, $paymentStatus)) {
+        if ($this->isExpiredStatus($status)) {
             $request->markExpired();
 
             return true;
@@ -61,7 +61,7 @@ class StatusSessionAction extends AbstractStatusAction
         return false;
     }
 
-    protected function isCaptureStatus(string $status, string $paymentStatus): bool
+    protected function isCaptureStatus(string $status, string|null $paymentStatus): bool
     {
         if (Session::STATUS_COMPLETE !== $status) {
             return false;
@@ -70,7 +70,7 @@ class StatusSessionAction extends AbstractStatusAction
         return Session::PAYMENT_STATUS_UNPAID !== $paymentStatus;
     }
 
-    protected function isExpiredStatus(string $status, string $paymentStatus): bool
+    protected function isExpiredStatus(string $status): bool
     {
         return Session::STATUS_EXPIRED === $status;
     }
@@ -128,7 +128,7 @@ class StatusSessionAction extends AbstractStatusAction
         return $paymentIntent;
     }
 
-    protected function isPendingStatus(string $status, string $paymentStatus): bool
+    protected function isPendingStatus(string $status, string|null $paymentStatus): bool
     {
         if (Session::STATUS_COMPLETE !== $status) {
             return false;
@@ -137,7 +137,7 @@ class StatusSessionAction extends AbstractStatusAction
         return Session::PAYMENT_STATUS_UNPAID === $paymentStatus;
     }
 
-    protected function isNewStatus(string $status, string $paymentStatus): bool
+    protected function isNewStatus(string $status, string|null $paymentStatus): bool
     {
         if (Session::STATUS_OPEN !== $status) {
             return false;
