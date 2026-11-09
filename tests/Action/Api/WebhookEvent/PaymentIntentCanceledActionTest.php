@@ -83,7 +83,16 @@ final class PaymentIntentCanceledActionTest extends TestCase
         $this->assertFalse($supports);
     }
 
-    public function testSupports(): void
+    public function provideCaptureMethods(): array
+    {
+        return [
+            ['automatic'],
+            ['automatic_async'],
+        ];
+    }
+
+    /** @dataProvider provideCaptureMethods */
+    public function testSupports(string $captureMethod): void
     {
         $action = new PaymentIntentCanceledAction();
 
@@ -91,7 +100,7 @@ final class PaymentIntentCanceledActionTest extends TestCase
             'id' => 'event_1',
             'data' => [
                 'object' => [
-                    'capture_method' => 'automatic',
+                    'capture_method' => $captureMethod,
                     'metadata' => [
                         'token_hash' => 'test_hash',
                     ],
@@ -106,13 +115,14 @@ final class PaymentIntentCanceledActionTest extends TestCase
         $this->assertTrue($supports);
     }
 
-    public function testShouldConsumeAWebhookEvent(): void
+    /** @dataProvider provideCaptureMethods */
+    public function testShouldConsumeAWebhookEvent(string $captureMethod): void
     {
         $model = [
             'id' => 'event_1',
             'data' => [
                 'object' => [
-                    'capture_method' => 'automatic',
+                    'capture_method' => $captureMethod,
                     'metadata' => [
                         'token_hash' => 'test_hash',
                     ],

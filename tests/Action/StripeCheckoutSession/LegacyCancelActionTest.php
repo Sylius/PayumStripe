@@ -30,6 +30,7 @@ final class LegacyCancelActionTest extends TestCase
         $action = new LegacyCancelAction();
 
         $this->assertTrue($action->supports(new Cancel(['object' => PaymentIntent::OBJECT_NAME, 'capture_method' => 'automatic'])));
+        $this->assertTrue($action->supports(new Cancel(['object' => PaymentIntent::OBJECT_NAME, 'capture_method' => 'automatic_async'])));
         $this->assertFalse($action->supports(new Cancel(['object' => PaymentIntent::OBJECT_NAME, 'capture_method' => 'manual'])));
         $this->assertFalse($action->supports(new Cancel([])));
         $this->assertFalse($action->supports(new Cancel(['object' => ''])));
@@ -106,11 +107,20 @@ final class LegacyCancelActionTest extends TestCase
         $action->execute($request);
     }
 
-    public function testExpiresAnOpenedCheckoutSession(): void
+    public function provideCaptureMethods(): array
+    {
+        return [
+            ['automatic'],
+            ['automatic_async'],
+        ];
+    }
+
+    /** @dataProvider provideCaptureMethods */
+    public function testExpiresAnOpenedCheckoutSession(string $captureMethod): void
     {
         $request = new Cancel([
             'object' => PaymentIntent::OBJECT_NAME,
-            'capture_method' => 'automatic',
+            'capture_method' => $captureMethod,
             'id' => 'pi_abc123'
         ]);
         $action = new LegacyCancelAction();
