@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace FluxSE\PayumStripe\Action\Api\WebhookEvent;
 
 use FluxSE\PayumStripe\Request\Api\WebhookEvent\WebhookEvent;
-use Stripe\PaymentIntent;
 use Stripe\StripeObject;
 
 abstract class AbstractPaymentIntentAction extends AbstractPaymentAction
@@ -24,12 +23,7 @@ abstract class AbstractPaymentIntentAction extends AbstractPaymentAction
             return null;
         }
 
-        $captureMethod = $paymentIntent->offsetGet('capture_method');
-        if (PaymentIntent::CAPTURE_METHOD_AUTOMATIC_ASYNC === $captureMethod) {
-            $captureMethod = PaymentIntent::CAPTURE_METHOD_AUTOMATIC;
-        }
-
-        if ($this->getSupportedCaptureMethod() === $captureMethod) {
+        if ($this->getSupportedCaptureMethod() === $paymentIntent->offsetGet('capture_method')) {
             return $paymentIntent;
         }
 

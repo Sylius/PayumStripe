@@ -68,6 +68,18 @@ final class PaymentIntentCanceledActionTest extends TestCase
                 ],
                 'type' => Event::PAYMENT_INTENT_CANCELED,
             ]],
+            [[
+                'id' => 'event_1',
+                'data' => [
+                    'object' => [
+                        'capture_method' => 'automatic_async',
+                        'metadata' => [
+                            'token_hash' => 'test_hash',
+                        ],
+                    ],
+                ],
+                'type' => Event::PAYMENT_INTENT_CANCELED,
+            ]],
         ];
     }
 
@@ -83,16 +95,7 @@ final class PaymentIntentCanceledActionTest extends TestCase
         $this->assertFalse($supports);
     }
 
-    public function provideCaptureMethods(): array
-    {
-        return [
-            ['automatic'],
-            ['automatic_async'],
-        ];
-    }
-
-    /** @dataProvider provideCaptureMethods */
-    public function testSupports(string $captureMethod): void
+    public function testSupports(): void
     {
         $action = new PaymentIntentCanceledAction();
 
@@ -100,7 +103,7 @@ final class PaymentIntentCanceledActionTest extends TestCase
             'id' => 'event_1',
             'data' => [
                 'object' => [
-                    'capture_method' => $captureMethod,
+                    'capture_method' => 'automatic',
                     'metadata' => [
                         'token_hash' => 'test_hash',
                     ],
@@ -115,14 +118,13 @@ final class PaymentIntentCanceledActionTest extends TestCase
         $this->assertTrue($supports);
     }
 
-    /** @dataProvider provideCaptureMethods */
-    public function testShouldConsumeAWebhookEvent(string $captureMethod): void
+    public function testShouldConsumeAWebhookEvent(): void
     {
         $model = [
             'id' => 'event_1',
             'data' => [
                 'object' => [
-                    'capture_method' => $captureMethod,
+                    'capture_method' => 'automatic',
                     'metadata' => [
                         'token_hash' => 'test_hash',
                     ],

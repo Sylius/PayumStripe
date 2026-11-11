@@ -55,6 +55,8 @@ use FluxSE\PayumStripe\Action\Api\Resource\UpdateSubscriptionAction;
 use FluxSE\PayumStripe\Action\Api\WebhookEvent\AuthorizedPaymentIntentCanceledAction;
 use FluxSE\PayumStripe\Action\Api\WebhookEvent\AuthorizedPaymentIntentManuallyCanceledAction;
 use FluxSE\PayumStripe\Action\Api\WebhookEvent\AuthorizedPaymentIntentSucceededAction;
+use FluxSE\PayumStripe\Action\Api\WebhookEvent\PaymentIntentAutomaticAsyncCanceledAction;
+use FluxSE\PayumStripe\Action\Api\WebhookEvent\PaymentIntentAutomaticAsyncSucceededAction;
 use FluxSE\PayumStripe\Action\Api\WebhookEvent\PaymentIntentCanceledAction;
 use FluxSE\PayumStripe\Action\Api\WebhookEvent\PaymentIntentCanceledFromAuthorizeAction;
 use FluxSE\PayumStripe\Action\Api\WebhookEvent\PaymentIntentSucceededAction;
@@ -161,6 +163,8 @@ abstract class AbstractStripeGatewayFactory extends GatewayFactory
             'payum.action.stripe_webhook_test' => new StripeWebhookTestAction(),
             'payum.action.payment_intent_succeeded' => new PaymentIntentSucceededAction(),
             'payum.action.payment_intent_canceled' => new PaymentIntentCanceledAction(),
+            'payum.action.payment_intent_automatic_async_succeeded' => new PaymentIntentAutomaticAsyncSucceededAction(),
+            'payum.action.payment_intent_automatic_async_canceled' => new PaymentIntentAutomaticAsyncCanceledAction(),
             'payum.action.payment_intent_succeeded_from_authorize' => new PaymentIntentSucceededFromAuthorizeAction(),
             'payum.action.payment_intent_canceled_from_authorize' => new PaymentIntentCanceledFromAuthorizeAction(),
             'payum.action.authorized_payment_intent_succeeded' => new AuthorizedPaymentIntentSucceededAction(),
