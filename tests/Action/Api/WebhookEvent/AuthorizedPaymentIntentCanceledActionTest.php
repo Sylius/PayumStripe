@@ -68,6 +68,18 @@ final class AuthorizedPaymentIntentCanceledActionTest extends TestCase
                 ],
                 'type' => Event::PAYMENT_INTENT_CANCELED,
             ]],
+            [[
+                'id' => 'event_1',
+                'data' => [
+                    'object' => [
+                        'capture_method' => 'automatic_async',
+                        'metadata' => [
+                            'capture_authorize_token_hash' => 'test_hash',
+                        ],
+                    ],
+                ],
+                'type' => Event::PAYMENT_INTENT_CANCELED,
+            ]],
         ];
     }
 
